@@ -9,7 +9,7 @@ import (
 
 	"github.com/jmoiron/sqlx"
 	"zxq.co/ripple/ocl"
-	"github.com/RealistikOsu/RealistikAPI/common"
+	"zxq.co/ripple/rippleapi/common"
 )
 
 type userData struct {
@@ -177,33 +177,21 @@ type modeData struct {
 	RankedScore            uint64  `json:"ranked_score"`
 	TotalScore             uint64  `json:"total_score"`
 	PlayCount              int     `json:"playcount"`
-	PlayTime               int     `json:"play_time"`
 	ReplaysWatched         int     `json:"replays_watched"`
 	TotalHits              int     `json:"total_hits"`
 	Level                  float64 `json:"level"`
 	Accuracy               float64 `json:"accuracy"`
 	PP                     int     `json:"pp"`
-	MaxCombo               int     `json:"max_combo"`
 	GlobalLeaderboardRank  *int    `json:"global_leaderboard_rank"`
 	CountryLeaderboardRank *int    `json:"country_leaderboard_rank"`
 }
-type userStats struct {
-	STD   modeData `json:"std"`
-	Taiko modeData `json:"taiko"`
-	CTB   modeData `json:"ctb"`
-	Mania modeData `json:"mania"`
-}
-
-type generalStats struct {
-	Vanilla userStats `json:"vn"`
-	Relax   userStats `json:"rx"`
-	Autopilot userStats `json:"ap"`
-}
-
 type userFullResponse struct {
 	common.ResponseBase
 	userData
-	Stats         generalStats          `json:"stats"`
+	STD           modeData              `json:"std"`
+	Taiko         modeData              `json:"taiko"`
+	CTB           modeData              `json:"ctb"`
+	Mania         modeData              `json:"mania"`
 	PlayStyle     int                   `json:"play_style"`
 	FavouriteMode int                   `json:"favourite_mode"`
 	Badges        []singleBadge         `json:"badges"`
@@ -218,39 +206,39 @@ type silenceInfo struct {
 	Reason string               `json:"reason"`
 	End    common.UnixTimestamp `json:"end"`
 }
-type userNotFullResponse struct {
-	Id             int                  `json:"id"`
-	Username       string               `json:"username"`
-	UsernameAKA    string               `json:"username_aka"`
-	RegisteredOn   common.UnixTimestamp `json:"registered_on"`
-	Privileges     uint64               `json:"privileges"`
-	LatestActivity common.UnixTimestamp `json:"latest_activity"`
-	Country        string               `json:"country"`
-	UserColor        string               `json:"user_color"`
-	RankedScoreStd            uint64  `json:"ranked_score_std"`
-	TotalScoreStd             uint64  `json:"total_score_std"`
-	PlaycountStd              int     `json:"playcount_std"`
-	ReplaysWatchedStd         int     `json:"replays_watched_std"`
-	TotalHitsStd              int     `json:"total_hits_std"`
-	PpStd                     int     `json:"pp_std"`
-	RankedScoreTaiko            uint64  `json:"ranked_score_taiko"`
-	TotalScoreTaiko             uint64  `json:"total_score_taiko"`
-	PlaycountTaiko              int     `json:"playcount_taiko"`
-	ReplaysWatchedTaiko         int     `json:"replays_watched_taiko"`
-	TotalHitsTaiko              int     `json:"total_hits_taiko"`
-	PpTaiko                     int     `json:"pp_taiko"`
-	RankedScoreCtb            uint64  `json:"ranked_score_ctb"`
-	TotalScoreCtb            uint64  `json:"total_score_ctb"`
-	PlaycountCtb              int     `json:"playcount_ctb"`
-	ReplaysWatchedCtb         int     `json:"replays_watched_ctb"`
-	TotalHitsCtb              int     `json:"total_hits_ctb"`
-	PpCtb                     int     `json:"pp_ctb"`
-	RankedScoreMania            uint64  `json:"ranked_score_mania"`
-	TotalScoreMania             uint64  `json:"total_score_mania"`
-	PlaycountMania              int     `json:"playcount_mania"`
-	ReplaysWatchedMania         int     `json:"replays_watched_mania"`
-	TotalHitsMania              int     `json:"total_hits_mania"`
-	PpMania                     int     `json:"pp_mania"`
+type userNotFullResponseLmao struct {
+	Id                  int                  `json:"id"`
+	Username            string               `json:"username"`
+	UsernameAKA         string               `json:"username_aka"`
+	RegisteredOn        common.UnixTimestamp `json:"registered_on"`
+	Privileges          uint64               `json:"privileges"`
+	LatestActivity      common.UnixTimestamp `json:"latest_activity"`
+	Country             string               `json:"country"`
+	UserColor           string               `json:"user_color"`
+	RankedScoreStd      uint64               `json:"ranked_score_std"`
+	TotalScoreStd       uint64               `json:"total_score_std"`
+	PlaycountStd        int                  `json:"playcount_std"`
+	ReplaysWatchedStd   int                  `json:"replays_watched_std"`
+	TotalHitsStd        int                  `json:"total_hits_std"`
+	PpStd               int                  `json:"pp_std"`
+	RankedScoreTaiko    uint64               `json:"ranked_score_taiko"`
+	TotalScoreTaiko     uint64               `json:"total_score_taiko"`
+	PlaycountTaiko      int                  `json:"playcount_taiko"`
+	ReplaysWatchedTaiko int                  `json:"replays_watched_taiko"`
+	TotalHitsTaiko      int                  `json:"total_hits_taiko"`
+	PpTaiko             int                  `json:"pp_taiko"`
+	RankedScoreCtb      uint64               `json:"ranked_score_ctb"`
+	TotalScoreCtb       uint64               `json:"total_score_ctb"`
+	PlaycountCtb        int                  `json:"playcount_ctb"`
+	ReplaysWatchedCtb   int                  `json:"replays_watched_ctb"`
+	TotalHitsCtb        int                  `json:"total_hits_ctb"`
+	PpCtb               int                  `json:"pp_ctb"`
+	RankedScoreMania    uint64               `json:"ranked_score_mania"`
+	TotalScoreMania     uint64               `json:"total_score_mania"`
+	PlaycountMania      int                  `json:"playcount_mania"`
+	ReplaysWatchedMania int                  `json:"replays_watched_mania"`
+	TotalHitsMania      int                  `json:"total_hits_mania"`
+	PpMania             int                  `json:"pp_mania"`
 	// STD       clappedModeData  `json:"std"`
 	// Taiko     clappedModeData  `json:"taiko"`
 	// CTB       clappedModeData  `json:"ctb"`
@@ -268,62 +256,37 @@ func UserFullGET(md common.MethodData) common.CodeMessager {
 	query := `
 SELECT
 	users.id, users.username, users.register_datetime, users.privileges, users.latest_activity,
+
 	users_stats.username_aka, users_stats.country, users_stats.play_style, users_stats.favourite_mode,
+
 	users_stats.custom_badge_icon, users_stats.custom_badge_name, users_stats.can_custom_badge,
 	users_stats.show_custom_badge,
 
-	users_stats.ranked_score_std, users_stats.total_score_std, users_stats.playcount_std, users_stats.playtime_std,
+	users_stats.ranked_score_std, users_stats.total_score_std, users_stats.playcount_std,
 	users_stats.replays_watched_std, users_stats.total_hits_std,
-	users_stats.avg_accuracy_std, users_stats.pp_std, users_stats.max_combo_std,
-	users_stats.ranked_score_taiko, users_stats.total_score_taiko, users_stats.playcount_taiko, users_stats.playtime_taiko,
-	users_stats.replays_watched_taiko, users_stats.total_hits_taiko,
-	users_stats.avg_accuracy_taiko, users_stats.pp_taiko, users_stats.max_combo_taiko,
-	users_stats.ranked_score_ctb, users_stats.total_score_ctb, users_stats.playcount_ctb, users_stats.playtime_ctb,
-	users_stats.replays_watched_ctb, users_stats.total_hits_ctb,
-	users_stats.avg_accuracy_ctb, users_stats.pp_ctb, users_stats.max_combo_ctb,
-	users_stats.ranked_score_mania, users_stats.total_score_mania, users_stats.playcount_mania, users_stats.playtime_mania,
-	users_stats.replays_watched_mania, users_stats.total_hits_mania,
-	users_stats.avg_accuracy_mania, users_stats.pp_mania, users_stats.max_combo_mania,
-	
-	rx_stats.ranked_score_std, rx_stats.total_score_std, rx_stats.playcount_std, users_stats.playtime_std,
-	rx_stats.replays_watched_std, rx_stats.total_hits_std,
-	rx_stats.avg_accuracy_std, rx_stats.pp_std, rx_stats.max_combo_std,
-	rx_stats.ranked_score_taiko, rx_stats.total_score_taiko, rx_stats.playcount_taiko, users_stats.playtime_taiko,
-	rx_stats.replays_watched_taiko, rx_stats.total_hits_taiko,
-	rx_stats.avg_accuracy_taiko, rx_stats.pp_taiko, rx_stats.max_combo_taiko,
-	rx_stats.ranked_score_ctb, rx_stats.total_score_ctb, rx_stats.playcount_ctb, users_stats.playtime_ctb,
-	rx_stats.replays_watched_ctb, rx_stats.total_hits_ctb,
-	rx_stats.avg_accuracy_ctb, rx_stats.pp_ctb, rx_stats.max_combo_ctb,
-	rx_stats.ranked_score_mania, rx_stats.total_score_mania, rx_stats.playcount_mania, users_stats.playtime_mania,
-	rx_stats.replays_watched_mania, rx_stats.total_hits_mania,
-	rx_stats.avg_accuracy_mania, rx_stats.pp_mania, rx_stats.max_combo_mania,
+	users_stats.avg_accuracy_std, users_stats.pp_std,
 
-	ap_stats.ranked_score_std, ap_stats.total_score_std, ap_stats.playcount_std, users_stats.playtime_std,
-	ap_stats.replays_watched_std, ap_stats.total_hits_std,
-	ap_stats.avg_accuracy_std, ap_stats.pp_std, ap_stats.max_combo_std,
-	ap_stats.ranked_score_taiko, ap_stats.total_score_taiko, ap_stats.playcount_taiko, users_stats.playtime_taiko,
-	ap_stats.replays_watched_taiko, ap_stats.total_hits_taiko,
-	ap_stats.avg_accuracy_taiko, ap_stats.pp_taiko, ap_stats.max_combo_taiko,
-	ap_stats.ranked_score_ctb, ap_stats.total_score_ctb, ap_stats.playcount_ctb, users_stats.playtime_ctb,
-	ap_stats.replays_watched_ctb, ap_stats.total_hits_ctb,
-	ap_stats.avg_accuracy_ctb, ap_stats.pp_ctb, ap_stats.max_combo_ctb,
-	ap_stats.ranked_score_mania, ap_stats.total_score_mania, ap_stats.playcount_mania, users_stats.playtime_mania,
-	ap_stats.replays_watched_mania, ap_stats.total_hits_mania,
-	ap_stats.avg_accuracy_mania, ap_stats.pp_mania, ap_stats.max_combo_mania,
+	users_stats.ranked_score_taiko, users_stats.total_score_taiko, users_stats.playcount_taiko,
+	users_stats.replays_watched_taiko, users_stats.total_hits_taiko,
+	users_stats.avg_accuracy_taiko, users_stats.pp_taiko,
+
+	users_stats.ranked_score_ctb, users_stats.total_score_ctb, users_stats.playcount_ctb,
+	users_stats.replays_watched_ctb, users_stats.total_hits_ctb,
+	users_stats.avg_accuracy_ctb, users_stats.pp_ctb,
+
+	users_stats.ranked_score_mania, users_stats.total_score_mania, users_stats.playcount_mania,
+	users_stats.replays_watched_mania, users_stats.total_hits_mania,
+	users_stats.avg_accuracy_mania, users_stats.pp_mania,
 
 	users.silence_reason, users.silence_end,
 	users.notes, users.ban_datetime, users.email
+
 FROM users
 LEFT JOIN users_stats
 ON users.id=users_stats.id
-LEFT JOIN rx_stats
-ON users.id=rx_stats.id
-LEFT JOIN ap_stats
-ON users.id=ap_stats.id
 WHERE ` + whereClause + ` AND ` + md.User.OnlyUserPublic(true) + `
 LIMIT 1
 `
-
 	// Fuck.
 	r := userFullResponse{}
 	var (
@@ -339,54 +302,21 @@ LIMIT 1
 
 		&b.Icon, &b.Name, &can, &show,
 
-		&r.Stats.Vanilla.STD.RankedScore, &r.Stats.Vanilla.STD.TotalScore, &r.Stats.Vanilla.STD.PlayCount, &r.Stats.Vanilla.STD.PlayTime,
-		&r.Stats.Vanilla.STD.ReplaysWatched, &r.Stats.Vanilla.STD.TotalHits,
-		&r.Stats.Vanilla.STD.Accuracy, &r.Stats.Vanilla.STD.PP, &r.Stats.Vanilla.STD.MaxCombo,
+		&r.STD.RankedScore, &r.STD.TotalScore, &r.STD.PlayCount,
+		&r.STD.ReplaysWatched, &r.STD.TotalHits,
+		&r.STD.Accuracy, &r.STD.PP,
 
-		&r.Stats.Vanilla.Taiko.RankedScore, &r.Stats.Vanilla.Taiko.TotalScore, &r.Stats.Vanilla.Taiko.PlayCount, &r.Stats.Vanilla.Taiko.PlayTime,
-		&r.Stats.Vanilla.Taiko.ReplaysWatched, &r.Stats.Vanilla.Taiko.TotalHits,
-		&r.Stats.Vanilla.Taiko.Accuracy, &r.Stats.Vanilla.Taiko.PP, &r.Stats.Vanilla.Taiko.MaxCombo,
+		&r.Taiko.RankedScore, &r.Taiko.TotalScore, &r.Taiko.PlayCount,
+		&r.Taiko.ReplaysWatched, &r.Taiko.TotalHits,
+		&r.Taiko.Accuracy, &r.Taiko.PP,
 
-		&r.Stats.Vanilla.CTB.RankedScore, &r.Stats.Vanilla.CTB.TotalScore, &r.Stats.Vanilla.CTB.PlayCount, &r.Stats.Vanilla.CTB.PlayTime,
-		&r.Stats.Vanilla.CTB.ReplaysWatched, &r.Stats.Vanilla.CTB.TotalHits,
-		&r.Stats.Vanilla.CTB.Accuracy, &r.Stats.Vanilla.CTB.PP, &r.Stats.Vanilla.CTB.MaxCombo,
+		&r.CTB.RankedScore, &r.CTB.TotalScore, &r.CTB.PlayCount,
+		&r.CTB.ReplaysWatched, &r.CTB.TotalHits,
+		&r.CTB.Accuracy, &r.CTB.PP,
 
-		&r.Stats.Vanilla.Mania.RankedScore, &r.Stats.Vanilla.Mania.TotalScore, &r.Stats.Vanilla.Mania.PlayCount, &r.Stats.Vanilla.Mania.PlayTime,
-		&r.Stats.Vanilla.Mania.ReplaysWatched, &r.Stats.Vanilla.Mania.TotalHits,
-		&r.Stats.Vanilla.Mania.Accuracy, &r.Stats.Vanilla.Mania.PP, &r.Stats.Vanilla.Mania.MaxCombo,
-
-		&r.Stats.Relax.STD.RankedScore, &r.Stats.Relax.STD.TotalScore, &r.Stats.Relax.STD.PlayCount, &r.Stats.Relax.STD.PlayTime,
-		&r.Stats.Relax.STD.ReplaysWatched, &r.Stats.Relax.STD.TotalHits,
-		&r.Stats.Relax.STD.Accuracy, &r.Stats.Relax.STD.PP, &r.Stats.Relax.STD.MaxCombo,
-
-		&r.Stats.Relax.Taiko.RankedScore, &r.Stats.Relax.Taiko.TotalScore, &r.Stats.Relax.Taiko.PlayCount, &r.Stats.Relax.Taiko.PlayTime,
-		&r.Stats.Relax.Taiko.ReplaysWatched, &r.Stats.Relax.Taiko.TotalHits,
-		&r.Stats.Relax.Taiko.Accuracy, &r.Stats.Relax.Taiko.PP, &r.Stats.Relax.Taiko.MaxCombo,
-
-		&r.Stats.Relax.CTB.RankedScore, &r.Stats.Relax.CTB.TotalScore, &r.Stats.Relax.CTB.PlayCount, &r.Stats.Relax.CTB.PlayTime,
-		&r.Stats.Relax.CTB.ReplaysWatched, &r.Stats.Relax.CTB.TotalHits,
-		&r.Stats.Relax.CTB.Accuracy, &r.Stats.Relax.CTB.PP, &r.Stats.Relax.CTB.MaxCombo,
-
-		&r.Stats.Relax.Mania.RankedScore, &r.Stats.Relax.Mania.TotalScore, &r.Stats.Relax.Mania.PlayCount, &r.Stats.Relax.Mania.PlayTime,
-		&r.Stats.Relax.Mania.ReplaysWatched, &r.Stats.Relax.Mania.TotalHits,
-		&r.Stats.Relax.Mania.Accuracy, &r.Stats.Relax.Mania.PP, &r.Stats.Relax.Mania.MaxCombo,
-
-
-		&r.Stats.Autopilot.STD.RankedScore, &r.Stats.Autopilot.STD.TotalScore, &r.Stats.Autopilot.STD.PlayCount, &r.Stats.Autopilot.STD.PlayTime,
-		&r.Stats.Autopilot.STD.ReplaysWatched, &r.Stats.Autopilot.STD.TotalHits,
-		&r.Stats.Autopilot.STD.Accuracy, &r.Stats.Autopilot.STD.PP, &r.Stats.Autopilot.STD.MaxCombo,
-
-		&r.Stats.Autopilot.Taiko.RankedScore, &r.Stats.Autopilot.Taiko.TotalScore, &r.Stats.Autopilot.Taiko.PlayCount, &r.Stats.Autopilot.Taiko.PlayTime,
-		&r.Stats.Autopilot.Taiko.ReplaysWatched, &r.Stats.Autopilot.Taiko.TotalHits,
-		&r.Stats.Autopilot.Taiko.Accuracy, &r.Stats.Autopilot.Taiko.PP, &r.Stats.Autopilot.Taiko.MaxCombo,
-
-		&r.Stats.Autopilot.CTB.RankedScore, &r.Stats.Autopilot.CTB.TotalScore, &r.Stats.Autopilot.CTB.PlayCount, &r.Stats.Autopilot.CTB.PlayTime,
-		&r.Stats.Autopilot.CTB.ReplaysWatched, &r.Stats.Autopilot.CTB.TotalHits,
-		&r.Stats.Autopilot.CTB.Accuracy, &r.Stats.Autopilot.CTB.PP, &r.Stats.Autopilot.CTB.MaxCombo,
-
-		&r.Stats.Autopilot.Mania.RankedScore, &r.Stats.Autopilot.Mania.TotalScore, &r.Stats.Autopilot.Mania.PlayCount, &r.Stats.Autopilot.Mania.PlayTime,
-		&r.Stats.Autopilot.Mania.ReplaysWatched, &r.Stats.Autopilot.Mania.TotalHits,
-		&r.Stats.Autopilot.Mania.Accuracy, &r.Stats.Autopilot.Mania.PP, &r.Stats.Autopilot.Mania.MaxCombo,
+		&r.Mania.RankedScore, &r.Mania.TotalScore, &r.Mania.PlayCount,
+		&r.Mania.ReplaysWatched, &r.Mania.TotalHits,
+		&r.Mania.Accuracy, &r.Mania.PP,
 
 		&r.SilenceInfo.Reason, &r.SilenceInfo.End,
 		&r.CMNotes, &r.BanDate, &r.Email,
@@ -404,35 +334,13 @@ LIMIT 1
 		r.CustomBadge = &b
 	}
 
-	for modeID, m := range [...]*modeData{&r.Stats.Vanilla.STD, &r.Stats.Vanilla.Taiko, &r.Stats.Vanilla.CTB, &r.Stats.Vanilla.Mania} {
+	for modeID, m := range [...]*modeData{&r.STD, &r.Taiko, &r.CTB, &r.Mania} {
 		m.Level = ocl.GetLevelPrecise(int64(m.TotalScore))
 
 		if i := leaderboardPosition(md.R, modesToReadable[modeID], r.ID); i != nil {
 			m.GlobalLeaderboardRank = i
 		}
 		if i := countryPosition(md.R, modesToReadable[modeID], r.ID, r.Country); i != nil {
-			m.CountryLeaderboardRank = i
-		}
-	}
-	// I'm sorry for this horribleness but ripple and past mistakes have forced my hand
-	for modeID, m := range [...]*modeData{&r.Stats.Relax.STD, &r.Stats.Relax.Taiko, &r.Stats.Relax.CTB, &r.Stats.Relax.Mania} {
-		m.Level = ocl.GetLevelPrecise(int64(m.TotalScore))
-
-		if i := relaxboardPosition(md.R, modesToReadable[modeID], r.ID); i != nil {
-			m.GlobalLeaderboardRank = i
-		}
-		if i := rxcountryPosition(md.R, modesToReadable[modeID], r.ID, r.Country); i != nil {
-			m.CountryLeaderboardRank = i
-		}
-	}
-	// I'm sorry for this horribleness but ripple and past mistakes have forced my hand
-	for modeID, m := range [...]*modeData{&r.Stats.Autopilot.STD, &r.Stats.Autopilot.Taiko, &r.Stats.Autopilot.CTB, &r.Stats.Autopilot.Mania} {
-		m.Level = ocl.GetLevelPrecise(int64(m.TotalScore))
-
-		if i := autoPosition(md.R, modesToReadable[modeID], r.ID); i != nil {
-			m.GlobalLeaderboardRank = i
-		}
-		if i := apcountryPosition(md.R, modesToReadable[modeID], r.ID, r.Country); i != nil {
 			m.CountryLeaderboardRank = i
 		}
 	}
