@@ -245,6 +245,45 @@ type userNotFullResponseLmao struct {
 	// Mania     clappedModeData  `json:"mania"`
 }
 
+type userNotFullResponse struct {
+	Id                  int                  `json:"id"`
+	Username            string               `json:"username"`
+	UsernameAKA         string               `json:"username_aka"`
+	RegisteredOn        common.UnixTimestamp `json:"registered_on"`
+	Privileges          uint64               `json:"privileges"`
+	LatestActivity      common.UnixTimestamp `json:"latest_activity"`
+	Country             string               `json:"country"`
+	UserColor           string               `json:"user_color"`
+	RankedScoreStd      uint64               `json:"ranked_score_std"`
+	TotalScoreStd       uint64               `json:"total_score_std"`
+	PlaycountStd        int                  `json:"playcount_std"`
+	ReplaysWatchedStd   int                  `json:"replays_watched_std"`
+	TotalHitsStd        int                  `json:"total_hits_std"`
+	PpStd               int                  `json:"pp_std"`
+	RankedScoreTaiko    uint64               `json:"ranked_score_taiko"`
+	TotalScoreTaiko     uint64               `json:"total_score_taiko"`
+	PlaycountTaiko      int                  `json:"playcount_taiko"`
+	ReplaysWatchedTaiko int                  `json:"replays_watched_taiko"`
+	TotalHitsTaiko      int                  `json:"total_hits_taiko"`
+	PpTaiko             int                  `json:"pp_taiko"`
+	RankedScoreCtb      uint64               `json:"ranked_score_ctb"`
+	TotalScoreCtb       uint64               `json:"total_score_ctb"`
+	PlaycountCtb        int                  `json:"playcount_ctb"`
+	ReplaysWatchedCtb   int                  `json:"replays_watched_ctb"`
+	TotalHitsCtb        int                  `json:"total_hits_ctb"`
+	PpCtb               int                  `json:"pp_ctb"`
+	RankedScoreMania    uint64               `json:"ranked_score_mania"`
+	TotalScoreMania     uint64               `json:"total_score_mania"`
+	PlaycountMania      int                  `json:"playcount_mania"`
+	ReplaysWatchedMania int                  `json:"replays_watched_mania"`
+	TotalHitsMania      int                  `json:"total_hits_mania"`
+	PpMania             int                  `json:"pp_mania"`
+	// STD       clappedModeData  `json:"std"`
+	// Taiko     clappedModeData  `json:"taiko"`
+	// CTB       clappedModeData  `json:"ctb"`
+	// Mania     clappedModeData  `json:"mania"`
+}
+
 // UserFullGET gets all of an user's information, with one exception: their userpage.
 func UserFullGET(md common.MethodData) common.CodeMessager {
 	shouldRet, whereClause, param := whereClauseUser(md, "users")
